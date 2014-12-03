@@ -1,3 +1,5 @@
+<pre>
+
 textpress db
 ============
 texTPress DB is a text-based database in PHP (flat file db). You can see demo in texTPress CMS (text-press.googlecode.com)
@@ -19,3 +21,5 @@ db command list
   replace_db($filename,$ar_data,$pattern)
   array_sort($array, $column_data, $order=SORT_ASC)
   recursive_data($pattern,$column_parent=1,$row_array_in)
+
+</pre>
