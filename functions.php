@@ -1,4 +1,4 @@
-// (c)2012-2014 Flat File Database System by Muhammad Fauzan Sholihin	www.pricebill.com	Paypal donation: tecnixindo@gmail.com	Indonesian Bank : BCA 0372344006 SwiftCode=CENA IDJA
+// (c)2012-2015 Flat File Database System by Muhammad Fauzan Sholihin	www.pricebill.com	Paypal donation: tecnixindo@gmail.com	Indonesian Bank : BCA 0372344006 SwiftCode=CENA IDJA
 // Your donation will keep development process of this web apps. Thanks for your kindness
 // You may use, modify, redistribute my apps for free as long as keep the origin copywrite
 
