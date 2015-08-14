@@ -23,4 +23,11 @@ db command list
   array_sort($array, $column_data, $order=SORT_ASC)
   recursive_data($pattern,$column_parent=1,$row_array_in)
 
+example add_db guest book
+=========================
+	$data[1] = date('Y-m-d H:i:s');     // submitted date
+	$data[2] = 'John Doe';              // person name
+	$data[3] = 'Message from John Doe'; // guest book message
+	add_db('files/guestbook.txt',$data);
+
 </pre>
