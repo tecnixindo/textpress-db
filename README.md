@@ -28,7 +28,7 @@ example add_db guest book
 	$data[1] = date('Y-m-d H:i:s');     // submitted date
 	$data[2] = 'John Doe';              // person name
 	$data[3] = 'Message from John Doe'; // guest book message
-	add_db('guestbook.txt',$data);	// save database
+	add_db('guestbook.txt',$data);		// save database
 	
 file name can be: guestbook.txt or guestbook.db, or guestbook or whatever
 
