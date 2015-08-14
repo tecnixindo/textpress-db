@@ -12,14 +12,14 @@ insert file "functions.php" into your php file like this:
     
 db command list
 ===============
-  add_db ($filename,$ar_data)
-  edit_db ($filename,$ar_data)
+  add_db ($filename,$array_data)
+  edit_db ($filename,$array_data)
   del_db ($filename,$key)
   read_db($filename,$first_row,$last_row)
   search_db($filename,$pattern)
   key_db($filename,$key)
   get_key_db($filename,$pattern)
-  replace_db($filename,$ar_data,$pattern)
+  replace_db($filename,$array_data,$pattern)
   array_sort($array, $column_data, $order=SORT_ASC)
   recursive_data($pattern,$column_parent=1,$row_array_in)
 
