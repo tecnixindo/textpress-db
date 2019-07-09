@@ -35,7 +35,8 @@ file name can be: guestbook.txt or guestbook.db, or guestbook or whatever
 Donation for development:
 =========================
 BTC	1AEdAhje16RSeUMvYLQ4rzu9i5ZcHP9uDn
-BCH	bitcoincash:qpfs5k3v73ness44qvxeqaauknyem0uv0uwv0thvhu
+BCHABC	bitcoincash:qzpn7gr23awme4vawq7pjg8fc2najp736g0yr4eg0q
+BCHSV	bitcoincash:qrxwsduzu43gx83rqmqmnwwhq98qnmtyccfl89lr2p
 BTG	GfzmgESHyogYGt3UMc8Zp6wyB4wovpeuJn
 DASH	XwYEp7DbaPechDyEvcdfkNt99htVK3vmC5
 DOGE	DHKufkhPXbmgbCTpMGYNeGCQD4Zb6uAMsg
