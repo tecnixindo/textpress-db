@@ -7,8 +7,8 @@ You can see demo in texTPress CMS (text-press.googlecode.com)
 
 how to use
 ==========
-insert file "functions.php" into your php file like this:
-  include_once "functions.php";
+insert file "functions.inc.php" into your php file like this:
+  include_once "functions.inc.php";
     
 db command list
 ===============
