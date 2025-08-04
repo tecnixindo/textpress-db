@@ -1,6 +1,6 @@
 <?php
 // v2025.08 - Modified for PHP 5.x, 7.x, and 8.x compatibility
-// (c)2012 Flat File Database System by Muhammad Fauzan Sholihin 		Bitcoin donation: 1LuapJhp6TkBGgjSEE62SFc3TaSDdy4jYK
+// (c)2012 Flat File Database System by Muhammad Fauzan Sholihin 		www.tetuku.com		Bitcoin donation: 1LuapJhp6TkBGgjSEE62SFc3TaSDdy4jYK
 // Your donation will keep development process of this web apps. Thanks for your kindness
 // You may use, modify, redistribute my apps for free as long as keep the origin copywrite
 // https://github.com/tecnixindo/textpress-db 
@@ -83,6 +83,7 @@ $abs_url = $protokol.$domain['host'].$folder;	//"http://".$domain[host].$domain[
 // rewrite purpose
 $path[0] = in_string($folder,'',$_SERVER['REQUEST_URI']); // change on upload (optional)
 if (strpos($path[0],'/')) {$path = explode("/",$path[0]);}
+if (strpos($path[0],'?')) {$path[0] = in_string('','?',$path[0]);}
 for ($i = 1; $i <= 4; $i++) {
     if (isset($path[$i]) && strpos($path[$i], '?') !== false) {
         $path[$i] = in_string('', '?', $path[$i]);
@@ -102,10 +103,10 @@ function write_file($filename, $string) {
     $delay_us = 100000; // 100ms
 
     for ($i = 0; $i < $max_attempts; $i++) {
-        $fp = @fopen($filename, 'c+'); // Aman: tidak mengosongkan langsung
+        $fp = @fopen($filename, 'c+');
         if ($fp && flock($fp, LOCK_EX | LOCK_NB)) {
-            ftruncate($fp, 0); // Kosongkan file setelah lock
-            rewind($fp);       // Pastikan posisi ke awal
+            ftruncate($fp, 0);
+            rewind($fp);
             fwrite($fp, "\n" . $fixed . "\n");
             fflush($fp);
             flock($fp, LOCK_UN);
@@ -118,9 +119,8 @@ function write_file($filename, $string) {
         usleep($delay_us);
     }
 
-    return false; // Gagal tulis setelah percobaan
+    return false;
 }
-
 
 function read_file($filename) {		// file name
 if (!file_exists($filename)) {return;}
@@ -141,12 +141,13 @@ return $contents;
 
 // format: file name , array data (your data = array[1] to array[unlimited]. array[0] = key)
 function add_db ($filename,$ar_data) { // output as string (optional)
+$data = '';
 $data_storage = read_file($filename);
 $data_storage = str_replace("\n\n","\n",$data_storage);
 $old_size = strlen($data_storage);
 $key = 1 + in_string('{-}','{,}',$data_storage);
 $countdata = count($ar_data);
-if ($ar_data[0] != '') {$key = $ar_data[0]; $countdata = $countdata - 1; }
+if (isset($ar_data[0]) && $ar_data[0] != '') {$key = $ar_data[0]; $countdata = $countdata - 1; }
 for ($i=1;$i<=$countdata;$i++) {
 $data .= $ar_data[$i].'{,}';
 }
@@ -158,10 +159,11 @@ return $data;
 
 // format: file name , array data
 function edit_db ($filename,$ar_data) { // output as string (optional)
+$data = '';
 $data_storage = read_file($filename)."\n";
 $data_storage = str_replace("\n\n","\n",$data_storage);
 $old_size = strlen($data_storage)*0.4;
-if ($ar_data[0] != '') {$key = preg_replace('/[^0-9]/', '',$ar_data[0]);}
+if (isset($ar_data[0]) && $ar_data[0] != '') {$key = preg_replace('/[^0-9]/', '',$ar_data[0]);}
 if ($ar_data[0] == '') {$key = in_string('{-}','{,}',$data_storage);}
 $find_key = in_string('{-}'.$key.'{,}','{-}',$data_storage);
 if ($find_key == '') {$find_key = in_string('{-}'.$key.'{,}','',$data_storage);}
@@ -260,6 +262,7 @@ return $key;
 }
 
 function replace_db($filename,$ar_data,$pattern) {
+$data = '';
 $pattern = trim($pattern);
 if (strlen($pattern) < 1) {return;}
 $data_storage = read_file($filename);
@@ -270,7 +273,7 @@ $last_key = in_string('{-}','{,}',$data_storage);
 	if (!strpos($data_storage,$pattern)) {
 		$key = 1 + $last_key;
 		$countdata = count($ar_data);
-		if ($ar_data[0] != '') {$key = $ar_data[0]; $countdata = $countdata - 1; }
+		if (isset($ar_data[0]) && $ar_data[0] != '') {$key = $ar_data[0]; $countdata = $countdata - 1; }
 		for ($i=1;$i<=$countdata;$i++) {
 			if (!strpos($ar_data[$i],'{-}{,}')){$data .= $ar_data[$i].'{,}';}
 		}
