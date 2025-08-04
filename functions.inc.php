@@ -1,13 +1,13 @@
 <?php
 // v2025.08 - Modified for PHP 5.x, 7.x, and 8.x compatibility
-// (c)2012 Flat File Database System by Muhammad Fauzan Sholihin 		www.tetuku.com		Bitcoin donation: 1LuapJhp6TkBGgjSEE62SFc3TaSDdy4jYK
+// (c)2012 Flat File Database System by Muhammad Fauzan Sholihin 		Bitcoin donation: 1LuapJhp6TkBGgjSEE62SFc3TaSDdy4jYK
 // Your donation will keep development process of this web apps. Thanks for your kindness
 // You may use, modify, redistribute my apps for free as long as keep the origin copywrite
 // https://github.com/tecnixindo/textpress-db 
 
-// --- Polyfills dan deteksi versi PHP ---
+// --- Polyfills and detect PHP version ---
 
-// Menambahkan polyfill untuk hash_equals() karena hanya tersedia sejak PHP 5.6
+// Add polyfill for hash_equals() because only available since PHP 5.6
 if (!function_exists('hash_equals')) {
     function hash_equals($str1, $str2) {
         if (strlen($str1) != strlen($str2)) {
@@ -23,7 +23,7 @@ if (!function_exists('hash_equals')) {
     }
 }
 
-// --- Akhir Polyfills ---
+// --- End Polyfills ---
 
 
 // Command list --------------------
@@ -81,23 +81,12 @@ $abs_url = $protokol.$domain['host'].$folder;	//"http://".$domain[host].$domain[
 
 
 // rewrite purpose
-$path[0] = in_string($folder,'',$_SERVER['REQUEST_URI']); // ubah saat upload
+$path[0] = in_string($folder,'',$_SERVER['REQUEST_URI']); // change on upload (optional)
 if (strpos($path[0],'/')) {$path = explode("/",$path[0]);}
 for ($i = 1; $i <= 4; $i++) {
     if (isset($path[$i]) && strpos($path[$i], '?') !== false) {
         $path[$i] = in_string('', '?', $path[$i]);
     }
-}
-
-function cek_file($filename) {		// file name
-if (!file_exists($filename)) {return;}
-$file_size = filesize($filename);
-if ($file_size <=0 ) {return;}
-if ($file_size > 5242880) {$file_size = 5242880;}
-$handle = fopen($filename, "r");
-$contents = fread($handle, $file_size);
-fclose($handle);
-return $contents;
 }
 
 function write_file($filename, $string) {
@@ -131,6 +120,7 @@ function write_file($filename, $string) {
 
     return false; // Gagal tulis setelah percobaan
 }
+
 
 function read_file($filename) {		// file name
 if (!file_exists($filename)) {return;}
@@ -209,7 +199,7 @@ write_file($filename,$data_storage);
 
 // format: file name, first row, last row
 function read_db($filename,$first_row,$last_row) { //output as array data
-if (!strpos($filename,'http://')) {$data_storage = cek_file($filename);}
+if (!strpos($filename,'http://')) {$data_storage = read_file($filename);}
 if (strpos($filename,'http://')) {$data_storage = access_url($filename);}
 $data_storage = str_replace("\n\n","\n",$data_storage);
 $pieces = explode("{-}",$data_storage);
@@ -243,7 +233,7 @@ return $result;
 function key_db ($filename,$key){ // output: row data at specific key
 if ($key == '') {$out = array(); return $out;}
 $data = "{-}".$key."{,}";
-$data_storage = cek_file($filename);
+$data_storage = read_file($filename);
 if (!strpos($data_storage,$data)) {return;}
 $find_key = substr($data_storage, strpos($data_storage, $data));
 $find_key = substr($find_key,0, strpos($find_key, "\n{-}"));
@@ -255,7 +245,7 @@ return $out;
 
 // format: file name , string pattern
 function get_key_db($filename,$pattern) { // output string key
-$data_storage = cek_file($filename);
+$data_storage = read_file($filename);
 if (!strpos($data_storage,$pattern)) {return false;}
 $data_storage = str_replace("\n\n","\n",$data_storage);
 $pieces = explode("{-}",$data_storage);
